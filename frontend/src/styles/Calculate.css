@@ -1,0 +1,45 @@
+.calculate-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.calculate-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  grid-column: 1 / -1;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.result-box {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f0f9ff;
+  border-left: 5px solid #2563eb;
+  border-radius: 6px;
+}
