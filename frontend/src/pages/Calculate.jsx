@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../api";
 import "../styles/Calculate.css";
+import Result from "../components/Result";
 
 const Calculate = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +34,7 @@ const Calculate = () => {
 
     try {
         const res = await api.post("/api/submit/", payload);
-        setResult(res.data.biological_age);
+        setResult(res.data);
     } catch (error) {
         alert("Error calculating biological age. Please try again.");
     } finally {
@@ -61,12 +62,8 @@ const Calculate = () => {
         <button type="submit">Calculate</button>
       </form>
 
-      {result && (
-        <div className="result-box">
-          <h3>Your Estimated Biological Age</h3>
-          <p>{result} years</p>
-        </div>
-      )}
+
+      <Result result= {result}/>
     </div>
   );
 };

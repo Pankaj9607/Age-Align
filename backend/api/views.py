@@ -4,7 +4,7 @@ from rest_framework import generics
 from .serializers import UserSerializer, BiomarkerRecordSerializer, BiologicalAgeResultSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import BiomarkerRecord, BiologicalAgeResult
-from .services import calculate_biological_age
+from .services import calculate_biological_age, generate_health_suggestions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -28,6 +28,7 @@ class SubmitBiomarkersView(APIView):
 
             # Calculate biological age
             biological_age, age_difference = calculate_biological_age(biomarker_record)
+            suggestions = generate_health_suggestions(biomarker_record)
 
             # Store result
             result = BiologicalAgeResult.objects.create(
@@ -40,7 +41,10 @@ class SubmitBiomarkersView(APIView):
             result_serializer = BiologicalAgeResultSerializer(result)
 
             return Response(
-                result_serializer.data,
+                {
+                    **result_serializer.data,
+                    "suggestions": suggestions
+                },
                 status=status.HTTP_201_CREATED
             )
 
