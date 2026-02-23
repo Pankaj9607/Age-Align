@@ -76,5 +76,8 @@ class LatestAgeResultView(APIView):
             )
 
         serializer = BiologicalAgeResultSerializer(result)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
+        suggestions = generate_health_suggestions(result.biomarker_record)
+
+        return Response({**serializer.data,"suggestions": suggestions}, status=status.HTTP_200_OK)
+    

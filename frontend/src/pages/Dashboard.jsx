@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import api from "../api";
+import Calculate from "../pages/Calculate"
 
 function Dashboard() {
   const [latest, setLatest] = useState(null);
   const [message, setMessage] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     api.get("api/latest/")
       .then((res) => {
         setLatest(res.data);
+        setSuggestions(res.data.suggestions || []);
       })
       .catch((err) => {
         if (err.response?.status === 404) {
@@ -33,8 +36,19 @@ function Dashboard() {
             <strong>Calculated At:</strong>{" "}
             {new Date(latest.calculated_at).toLocaleString()}
           </p>
+          <h3>Health Suggestions</h3>
+          {suggestions.length > 0 ? (
+            <ul>
+              {suggestions.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No suggestions available</p>
+          )}
         </>
       )}
+      <Calculate />
     </div>
   );
 }

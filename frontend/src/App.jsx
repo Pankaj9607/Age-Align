@@ -12,6 +12,9 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Calculate from './pages/Calculate';
 import { Navigate } from 'react-router-dom';
+import Home1 from './components/Home1';
+import Navbar1 from './components/Navbar1';
+import Footer1 from './components/Footer1';
 
 
 function Logout() {
@@ -32,7 +35,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home1/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<RegisterAndLogout/>}/>
         <Route path="/logout" element={<Logout/>}/>
